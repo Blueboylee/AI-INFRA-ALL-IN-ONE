@@ -17,13 +17,21 @@ features:
   - title: GPU 编程与优化
     details: 深入 CUDA 并行编程，掌握 GPU 架构、内存优化与高性能计算核心技巧。
     icon: ⚡
+    link: /posts/gpu/
+    linkText: 查看全部笔记
   - title: 推理引擎与服务化
     details: 探索 vLLM、NVIDIA Triton Inference Server、TensorRT 等推理框架与部署方案。
     icon: 🚀
+    link: /posts/inference/
+    linkText: 查看全部文献
   - title: 编译器与算子优化
     details: 学习 OpenAI Triton 等编译器工具，理解算子融合、Kernel 自动生成等前沿技术。
     icon: 🔧
+    link: /posts/compiler/
+    linkText: 查看全部笔记
   - title: AI Infra 全链路
     details: 从硬件到软件栈，覆盖训练、推理、调度与部署的 AI 基础设施全貌。
     icon: 🧠
+    link: /posts/infra/
+    linkText: 查看全部笔记
 ---

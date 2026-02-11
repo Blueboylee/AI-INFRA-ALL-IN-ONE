@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'PMPP - C++ & AI Infrastructure',
-  description: 'CUDA 并行编程与 AI 基础设施学习笔记',
+  title: 'AI Infrastructure',
+  description: 'AI 基础设施学习笔记',
   base: '/PMPP_cpp_AI_infra/',
 
   head: [
@@ -21,6 +21,17 @@ export default defineConfig({
     ],
 
     sidebar: {
+      '/posts/inference/': [
+        {
+          text: '推理引擎与服务化',
+          items: [
+            { text: '📚 文献列表', link: '/posts/inference/' },
+            { text: 'vLLM: PagedAttention', link: '/posts/inference/vllm-paper' },
+            { text: 'TensorRT-LLM', link: '/posts/inference/tensorrt-llm' },
+            { text: 'Triton Inference Server', link: '/posts/inference/triton-inference-server' },
+          ],
+        },
+      ],
       '/posts/': [
         {
           text: '博客文章',
