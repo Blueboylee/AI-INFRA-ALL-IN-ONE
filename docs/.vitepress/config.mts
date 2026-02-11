@@ -4,7 +4,7 @@ import { cppPlaygroundPlugin } from './markdown-it-cpp-playground'
 export default defineConfig({
   title: 'AI Infrastructure',
   description: 'AI 基础设施学习笔记',
-  base: '/PMPP_cpp_AI_infra/',
+  base: '/AI-INFRA-ALL-IN-ONE/',
 
   markdown: {
     config: (md) => {
@@ -13,7 +13,7 @@ export default defineConfig({
   },
 
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/PMPP_cpp_AI_infra/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/AI-INFRA-ALL-IN-ONE/logo.svg' }],
   ],
 
   themeConfig: {
@@ -23,7 +23,7 @@ export default defineConfig({
       { text: '关于', link: '/about' },
       {
         text: '源码',
-        link: 'https://github.com/Blueboylee/PMPP_cpp_AI_infra/tree/main/src',
+        link: 'https://github.com/Blueboylee/AI-INFRA-ALL-IN-ONE/tree/main/src',
       },
     ],
 
@@ -50,7 +50,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/Blueboylee/PMPP_cpp_AI_infra' },
+      { icon: 'github', link: 'https://github.com/Blueboylee/AI-INFRA-ALL-IN-ONE' },
     ],
 
     footer: {
