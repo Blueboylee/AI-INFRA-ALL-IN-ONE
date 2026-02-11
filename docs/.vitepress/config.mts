@@ -1,9 +1,16 @@
 import { defineConfig } from 'vitepress'
+import { cppPlaygroundPlugin } from './markdown-it-cpp-playground'
 
 export default defineConfig({
   title: 'AI Infrastructure',
   description: 'AI 基础设施学习笔记',
   base: '/PMPP_cpp_AI_infra/',
+
+  markdown: {
+    config: (md) => {
+      md.use(cppPlaygroundPlugin)
+    },
+  },
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/PMPP_cpp_AI_infra/logo.svg' }],

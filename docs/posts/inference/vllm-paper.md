@@ -3,110 +3,6 @@ title: "vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention"
 date: 2026-02-12
 ---
 
-<script setup>
-const pagedKVCacheDemo = `#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <iomanip>
-
-// ===== 模拟 PagedAttention 的核心思想 =====
-// 将 KV Cache 从连续分配改为按需分页管理
-
-constexpr int BLOCK_SIZE   = 4;  // 每个物理块能存储的 Token 数
-constexpr int TOTAL_BLOCKS = 8;  // GPU 显存中的总物理块数
-
-struct PhysicalBlock {
-    float data[BLOCK_SIZE] = {};
-    int used = 0;
-};
-
-struct BlockTable {
-    std::vector<int> mapping;  // 页表: 逻辑块号 -> 物理块号
-};
-
-class PagedKVCache {
-    PhysicalBlock pool_[TOTAL_BLOCKS];
-    bool free_[TOTAL_BLOCKS];
-    std::unordered_map<int, BlockTable> tables_;
-
-public:
-    PagedKVCache() { for (auto& f : free_) f = true; }
-
-    int alloc_block() {
-        for (int i = 0; i < TOTAL_BLOCKS; i++)
-            if (free_[i]) { free_[i] = false; return i; }
-        return -1;  // OOM
-    }
-
-    void append_token(int seq_id, float value) {
-        auto& table = tables_[seq_id];
-        if (table.mapping.empty() ||
-            pool_[table.mapping.back()].used >= BLOCK_SIZE) {
-            int blk = alloc_block();
-            if (blk < 0) {
-                std::cout << "  [OOM] seq " << seq_id << "\\n";
-                return;
-            }
-            table.mapping.push_back(blk);
-        }
-        int pid = table.mapping.back();
-        pool_[pid].data[pool_[pid].used++] = value;
-    }
-
-    void print_status() const {
-        std::cout << "\\n=== 物理内存布局 ===\\n";
-        for (int i = 0; i < TOTAL_BLOCKS; i++) {
-            std::cout << "  Block " << i
-                      << (free_[i] ? " [free]  " : " [used]  ");
-            if (!free_[i])
-                for (int j = 0; j < pool_[i].used; j++)
-                    std::cout << pool_[i].data[j] << " ";
-            std::cout << "\\n";
-        }
-        std::cout << "\\n=== 页表映射 (logical -> physical) ===\\n";
-        for (auto& [sid, t] : tables_) {
-            std::cout << "  Seq " << sid << ": ";
-            for (size_t i = 0; i < t.mapping.size(); i++)
-                std::cout << (i ? ", " : "") << i << "->" << t.mapping[i];
-            std::cout << "\\n";
-        }
-    }
-
-    int free_count() const {
-        int n = 0; for (auto f : free_) n += f; return n;
-    }
-};
-
-int main() {
-    std::cout << "====== PagedAttention KV Cache 模拟 ======\\n";
-    std::cout << "Block size : " << BLOCK_SIZE << " tokens\\n";
-    std::cout << "Total blocks: " << TOTAL_BLOCKS << "\\n";
-
-    PagedKVCache cache;
-
-    // 模拟两个并发请求的 KV Cache 动态增长
-    std::cout << "\\n-- Seq 0: append 6 tokens --\\n";
-    for (int i = 0; i < 6; i++) cache.append_token(0, i * 1.0f);
-
-    std::cout << "-- Seq 1: append 3 tokens --\\n";
-    for (int i = 0; i < 3; i++) cache.append_token(1, (i + 10) * 1.0f);
-
-    cache.print_status();
-
-    double util = (1.0 - (double)cache.free_count() / TOTAL_BLOCKS) * 100;
-    std::cout << "\\nFree blocks: " << cache.free_count()
-              << "/" << TOTAL_BLOCKS
-              << "  utilization: " << std::fixed << std::setprecision(1)
-              << util << "%\\n";
-
-    std::cout << "\\n[Key insight]\\n"
-              << "  两个序列的 KV Cache 在物理内存中是非连续、交错的,\\n"
-              << "  但通过页表, 每个序列看到的是一段连续的逻辑地址空间.\\n"
-              << "  按需分配 + 分页映射 = PagedAttention 的核心思想!\\n";
-    return 0;
-}`
-</script>
-
 # vLLM: Easy, Fast, and Cheap LLM Serving with PagedAttention
 
 <p style="color: var(--vp-c-text-2); font-size: 14px;">
@@ -203,7 +99,109 @@ LLM 的服务过程被明确划分为两个性质截然不同的阶段：
 
 下面的 C++ 代码模拟了 PagedAttention 的核心机制：物理块池、页表映射、按需分配。点击 **运行** 观察两个并发序列的 KV Cache 如何在非连续的物理内存中被管理。你也可以修改代码来实验不同的参数。
 
-<CppPlayground :code="pagedKVCacheDemo" title="PagedAttention KV Cache 模拟" />
+```cpp-run title="PagedAttention KV Cache 模拟"
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <iomanip>
+
+// ===== 模拟 PagedAttention 的核心思想 =====
+// 将 KV Cache 从连续分配改为按需分页管理
+
+constexpr int BLOCK_SIZE   = 4;  // 每个物理块能存储的 Token 数
+constexpr int TOTAL_BLOCKS = 8;  // GPU 显存中的总物理块数
+
+struct PhysicalBlock {
+    float data[BLOCK_SIZE] = {};
+    int used = 0;
+};
+
+struct BlockTable {
+    std::vector<int> mapping;  // 页表: 逻辑块号 -> 物理块号
+};
+
+class PagedKVCache {
+    PhysicalBlock pool_[TOTAL_BLOCKS];
+    bool free_[TOTAL_BLOCKS];
+    std::unordered_map<int, BlockTable> tables_;
+
+public:
+    PagedKVCache() { for (auto& f : free_) f = true; }
+
+    int alloc_block() {
+        for (int i = 0; i < TOTAL_BLOCKS; i++)
+            if (free_[i]) { free_[i] = false; return i; }
+        return -1;  // OOM
+    }
+
+    void append_token(int seq_id, float value) {
+        auto& table = tables_[seq_id];
+        if (table.mapping.empty() ||
+            pool_[table.mapping.back()].used >= BLOCK_SIZE) {
+            int blk = alloc_block();
+            if (blk < 0) {
+                std::cout << "  [OOM] seq " << seq_id << "\n";
+                return;
+            }
+            table.mapping.push_back(blk);
+        }
+        int pid = table.mapping.back();
+        pool_[pid].data[pool_[pid].used++] = value;
+    }
+
+    void print_status() const {
+        std::cout << "\n=== 物理内存布局 ===\n";
+        for (int i = 0; i < TOTAL_BLOCKS; i++) {
+            std::cout << "  Block " << i
+                      << (free_[i] ? " [free]  " : " [used]  ");
+            if (!free_[i])
+                for (int j = 0; j < pool_[i].used; j++)
+                    std::cout << pool_[i].data[j] << " ";
+            std::cout << "\n";
+        }
+        std::cout << "\n=== 页表映射 (logical -> physical) ===\n";
+        for (auto& [sid, t] : tables_) {
+            std::cout << "  Seq " << sid << ": ";
+            for (size_t i = 0; i < t.mapping.size(); i++)
+                std::cout << (i ? ", " : "") << i << "->" << t.mapping[i];
+            std::cout << "\n";
+        }
+    }
+
+    int free_count() const {
+        int n = 0; for (auto f : free_) n += f; return n;
+    }
+};
+
+int main() {
+    std::cout << "====== PagedAttention KV Cache 模拟 ======\n";
+    std::cout << "Block size : " << BLOCK_SIZE << " tokens\n";
+    std::cout << "Total blocks: " << TOTAL_BLOCKS << "\n";
+
+    PagedKVCache cache;
+
+    // 模拟两个并发请求的 KV Cache 动态增长
+    std::cout << "\n-- Seq 0: append 6 tokens --\n";
+    for (int i = 0; i < 6; i++) cache.append_token(0, i * 1.0f);
+
+    std::cout << "-- Seq 1: append 3 tokens --\n";
+    for (int i = 0; i < 3; i++) cache.append_token(1, (i + 10) * 1.0f);
+
+    cache.print_status();
+
+    double util = (1.0 - (double)cache.free_count() / TOTAL_BLOCKS) * 100;
+    std::cout << "\nFree blocks: " << cache.free_count()
+              << "/" << TOTAL_BLOCKS
+              << "  utilization: " << std::fixed << std::setprecision(1)
+              << util << "%\n";
+
+    std::cout << "\n[Key insight]\n"
+              << "  两个序列的 KV Cache 在物理内存中是非连续、交错的,\n"
+              << "  但通过页表, 每个序列看到的是一段连续的逻辑地址空间.\n"
+              << "  按需分配 + 分页映射 = PagedAttention 的核心思想!\n";
+    return 0;
+}
+```
 
 ## 关键优化
 
