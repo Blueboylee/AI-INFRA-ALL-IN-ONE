@@ -65,6 +65,21 @@
   </div>
 </a>
 
+<a class="paper-card" href="./clipper">
+  <div class="paper-icon">📄</div>
+  <div class="paper-body">
+    <h3>Clipper: A Low-Latency Online Prediction Serving System</h3>
+    <p class="paper-meta">Daniel Crankshaw et al. · UC Berkeley · NSDI 2017</p>
+    <p class="paper-desc">最早系统性地将 ML 模型推向在线推理服务的通用 Serving 系统之一，通过模型抽象层（容器化 + 自适应批处理）和模型选择层（Bandit 算法 + 集成学习）解决框架碎片化与在线模型选优问题。</p>
+    <div class="paper-tags">
+      <span class="tag">Model Serving</span>
+      <span class="tag">Adaptive Batching</span>
+      <span class="tag">Bandit Algorithm</span>
+      <span class="tag">Ensemble</span>
+    </div>
+  </div>
+</a>
+
 </div>
 
 ::: tip 💡 持续更新中
