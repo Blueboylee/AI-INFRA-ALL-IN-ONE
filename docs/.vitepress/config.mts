@@ -3,8 +3,9 @@ import { cppPlaygroundPlugin } from './markdown-it-cpp-playground'
 
 export default defineConfig({
   title: 'AI Infrastructure',
-  description: 'AI 基础设施学习笔记',
+  description: 'AI Infra 全栈学习笔记：深入 CUDA 并行编程、vLLM PagedAttention、SGLang、TensorRT-LLM、Triton Inference Server 等推理引擎原理与实践，涵盖 GPU 优化、算子融合、模型服务化部署。',
   base: '/AI-INFRA-ALL-IN-ONE/',
+  lang: 'zh-CN',
 
   markdown: {
     config: (md) => {
@@ -14,6 +15,19 @@ export default defineConfig({
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/AI-INFRA-ALL-IN-ONE/logo.svg' }],
+    ['meta', { name: 'keywords', content: 'AI Infrastructure, CUDA, vLLM, PagedAttention, SGLang, TensorRT-LLM, Triton Inference Server, OpenAI Triton, GPU编程, 推理引擎, 模型服务化, 算子优化, LLM推理优化, AI基础设施, 高性能计算' }],
+    ['meta', { name: 'author', content: 'Blueboylee' }],
+    // Open Graph
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:title', content: 'AI Infra 学习笔记 — 从 CUDA 到推理引擎全栈技术' }],
+    ['meta', { property: 'og:description', content: '系统学习 AI 基础设施：CUDA 并行编程、vLLM、SGLang、TensorRT-LLM、Triton 推理服务、算子优化等全栈技术笔记与论文精读。' }],
+    ['meta', { property: 'og:url', content: 'https://blueboylee.github.io/AI-INFRA-ALL-IN-ONE/' }],
+    ['meta', { property: 'og:locale', content: 'zh_CN' }],
+    ['meta', { property: 'og:site_name', content: 'AI Infra 学习笔记' }],
+    // Twitter Card
+    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:title', content: 'AI Infra 学习笔记 — 从 CUDA 到推理引擎全栈技术' }],
+    ['meta', { name: 'twitter:description', content: '系统学习 AI 基础设施：CUDA 并行编程、vLLM、SGLang、TensorRT-LLM、Triton 推理服务、算子优化等全栈技术笔记与论文精读。' }],
   ],
 
   themeConfig: {
