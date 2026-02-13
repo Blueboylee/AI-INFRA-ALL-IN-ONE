@@ -39,7 +39,9 @@ export function cppPlaygroundPlugin(md: MarkdownIt) {
 
     // 用 encodeURIComponent 安全地编码代码内容
     // Vue 模板中 decodeURIComponent 是允许的全局函数
-    const encoded = encodeURIComponent(code)
+    // 注意：encodeURIComponent 不编码单引号 '，但我们用单引号包裹字符串，
+    // 所以必须手动将 ' 替换为 %27，否则 C++ 字符字面量（如 '-'）会破坏模板
+    const encoded = encodeURIComponent(code).replace(/'/g, '%27')
 
     const titleAttr = title ? ` title="${title}"` : ''
 

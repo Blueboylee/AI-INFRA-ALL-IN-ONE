@@ -8,6 +8,7 @@ export default defineConfig({
   lang: 'zh-CN',
 
   markdown: {
+    math: true,
     config: (md) => {
       md.use(cppPlaygroundPlugin)
     },
