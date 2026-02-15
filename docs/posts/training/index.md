@@ -36,6 +36,21 @@
   </div>
 </a>
 
+<a class="paper-card" href="./zero-infinity">
+  <div class="paper-icon">📄</div>
+  <div class="paper-body">
+    <h3>ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning</h3>
+    <p class="paper-meta">Samyam Rajbhandari et al. · Microsoft · SC 2021</p>
+    <p class="paper-desc">将内存卸载扩展到 NVMe SSD，构建 GPU-CPU-NVMe 三级存储卸载引擎，辅以带宽中心化分片和四路重叠通信，在 512 张 V100 上成功训练 32 万亿参数模型。</p>
+    <div class="paper-tags">
+      <span class="tag">DeepSpeed</span>
+      <span class="tag">ZeRO-Infinity</span>
+      <span class="tag">NVMe Offloading</span>
+      <span class="tag">Storage Hierarchy</span>
+    </div>
+  </div>
+</a>
+
 </div>
 
 ::: tip 💡 持续更新中
