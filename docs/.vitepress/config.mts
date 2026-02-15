@@ -63,6 +63,7 @@ export default defineConfig({
           items: [
             { text: '📚 文献列表', link: '/posts/training/' },
             { text: 'ZeRO: 零冗余优化器', link: '/posts/training/deepspeed-zero' },
+            { text: 'ZeRO-Offload: 异构卸载训练', link: '/posts/training/zero-offload' },
           ],
         },
       ],

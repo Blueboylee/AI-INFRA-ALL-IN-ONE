@@ -21,6 +21,21 @@
   </div>
 </a>
 
+<a class="paper-card" href="./zero-offload">
+  <div class="paper-icon">📄</div>
+  <div class="paper-body">
+    <h3>ZeRO-Offload: Democratizing Billion-Scale Model Training</h3>
+    <p class="paper-meta">Jie Ren et al. · Microsoft & UC Merced · USENIX ATC 2021</p>
+    <p class="paper-desc">将优化器状态和梯度卸载到 CPU 内存，通过数据流图分析推导最优卸载策略，使单张 GPU 可训练超过 100 亿参数的模型，同时维持接近纯 GPU 训练的吞吐量。</p>
+    <div class="paper-tags">
+      <span class="tag">DeepSpeed</span>
+      <span class="tag">ZeRO-Offload</span>
+      <span class="tag">CPU Offloading</span>
+      <span class="tag">Heterogeneous Training</span>
+    </div>
+  </div>
+</a>
+
 </div>
 
 ::: tip 💡 持续更新中
