@@ -65,6 +65,7 @@ export default defineConfig({
             { text: 'ZeRO: 零冗余优化器', link: '/posts/training/deepspeed-zero' },
             { text: 'ZeRO-Offload: 异构卸载训练', link: '/posts/training/zero-offload' },
             { text: 'ZeRO-Infinity: NVMe 极限扩展', link: '/posts/training/zero-infinity' },
+            { text: 'Megatron-LM: 张量并行', link: '/posts/training/megatron-lm' },
           ],
         },
       ],

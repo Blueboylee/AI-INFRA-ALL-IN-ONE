@@ -51,6 +51,21 @@
   </div>
 </a>
 
+<a class="paper-card" href="./megatron-lm">
+  <div class="paper-icon">📄</div>
+  <div class="paper-body">
+    <h3>Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</h3>
+    <p class="paper-meta">Mohammad Shoeybi et al. · NVIDIA · 2019</p>
+    <p class="paper-desc">针对 Transformer 设计层内张量并行方案，通过 MLP 列-行并行、注意力头切分和并行 Cross-Entropy，每层仅需 2 次 AllReduce，在 512 张 V100 上高效训练 83 亿参数模型。</p>
+    <div class="paper-tags">
+      <span class="tag">Megatron-LM</span>
+      <span class="tag">Tensor Parallelism</span>
+      <span class="tag">Model Parallelism</span>
+      <span class="tag">NVIDIA</span>
+    </div>
+  </div>
+</a>
+
 </div>
 
 ::: tip 💡 持续更新中
