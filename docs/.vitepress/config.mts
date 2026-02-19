@@ -34,6 +34,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
+      { text: 'PMPP 专栏', link: '/posts/pmpp/' },
       { text: '博客', link: '/posts/' },
       { text: '关于', link: '/about' },
       {
@@ -43,6 +44,36 @@ export default defineConfig({
     ],
 
     sidebar: {
+      '/posts/pmpp/': [
+        {
+          text: 'PMPP：并行处理器编程',
+          items: [
+            { text: '⚡ 专栏介绍', link: '/posts/pmpp/' },
+            { text: 'Ch01: Introduction', link: '/posts/pmpp/ch01' },
+            { text: 'Ch02: 异构数据并行计算', link: '/posts/pmpp/ch02' },
+            { text: 'Ch03: 多维网格与数据', link: '/posts/pmpp/ch03' },
+            { text: 'Ch04: 计算架构与调度', link: '/posts/pmpp/ch04' },
+            { text: 'Ch05: 内存架构与数据局部性', link: '/posts/pmpp/ch05' },
+            { text: 'Ch06: 性能优化', link: '/posts/pmpp/ch06' },
+            { text: 'Ch07: 卷积', link: '/posts/pmpp/ch07' },
+            { text: 'Ch08: Stencil', link: '/posts/pmpp/ch08' },
+            { text: 'Ch09: 并行直方图', link: '/posts/pmpp/ch09' },
+            { text: 'Ch10: 归约', link: '/posts/pmpp/ch10' },
+            { text: 'Ch11: 前缀和 (Scan)', link: '/posts/pmpp/ch11' },
+            { text: 'Ch12: 归并', link: '/posts/pmpp/ch12' },
+            { text: 'Ch13: 排序', link: '/posts/pmpp/ch13' },
+            { text: 'Ch14: 稀疏矩阵计算', link: '/posts/pmpp/ch14' },
+            { text: 'Ch15: 图遍历', link: '/posts/pmpp/ch15' },
+            { text: 'Ch16: 深度学习', link: '/posts/pmpp/ch16' },
+            { text: 'Ch17: 迭代式 MRI 重建', link: '/posts/pmpp/ch17' },
+            { text: 'Ch18: 静电势图', link: '/posts/pmpp/ch18' },
+            { text: 'Ch19: 并行编程与计算思维', link: '/posts/pmpp/ch19' },
+            { text: 'Ch20: 异构集群编程', link: '/posts/pmpp/ch20' },
+            { text: 'Ch21: CUDA 动态并行', link: '/posts/pmpp/ch21' },
+            { text: 'Ch22: 高级实践与未来展望', link: '/posts/pmpp/ch22' },
+          ],
+        },
+      ],
       '/posts/inference/': [
         {
           text: '推理引擎与服务化',

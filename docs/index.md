@@ -14,11 +14,11 @@ hero:
       link: https://github.com/Blueboylee/PMPP_cpp_AI_infra/tree/main/src
 
 features:
-  - title: GPU 编程与优化
-    details: 深入 CUDA 并行编程，掌握 GPU 架构、内存优化与高性能计算核心技巧。
+  - title: PMPP：GPU 编程与优化
+    details: 系统精读《Programming Massively Parallel Processors》，从 GPU 架构到并行算法，掌握 CUDA 编程核心技巧。
     icon: ⚡
-    link: /posts/gpu/
-    linkText: 查看全部笔记
+    link: /posts/pmpp/
+    linkText: 进入 PMPP 专栏
   - title: 推理引擎与服务化
     details: 探索 vLLM、NVIDIA Triton Inference Server、TensorRT 等推理框架与部署方案。
     icon: 🚀
